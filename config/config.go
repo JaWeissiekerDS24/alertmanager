@@ -34,6 +34,7 @@ const secretToken = "<secret>"
 
 var secretTokenJSON string
 
+
 func init() {
 	b, err := json.Marshal(secretToken)
 	if err != nil {
@@ -48,7 +49,7 @@ type Secret string
 // MarshalYAML implements the yaml.Marshaler interface for Secret.
 func (s Secret) MarshalYAML() (interface{}, error) {
 	if s != "" {
-		return secretToken, nil
+		return s, nil
 	}
 	return nil, nil
 }
@@ -61,7 +62,7 @@ func (s *Secret) UnmarshalYAML(unmarshal func(interface{}) error) error {
 
 // MarshalJSON implements the json.Marshaler interface for Secret.
 func (s Secret) MarshalJSON() ([]byte, error) {
-	return json.Marshal(secretToken)
+	return json.Marshal(s)
 }
 
 // URL is a custom type that represents an HTTP or HTTPS URL and allows validation at configuration load time.
